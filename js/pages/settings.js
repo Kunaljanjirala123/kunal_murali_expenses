@@ -1,6 +1,5 @@
-// Settings Page
 import Store from '../store.js';
-import { showToast } from '../utils.js';
+import { showToast, confirmAction } from '../utils.js';
 
 export function renderSettings() {
   return `
@@ -103,12 +102,12 @@ export function initSettings() {
 
   // Clear
   document.getElementById('clear-data-btn')?.addEventListener('click', () => {
-    if (confirm('⚠️ Are you sure you want to clear ALL data? This cannot be undone!')) {
-      if (confirm('Really? This will delete everything permanently.')) {
+    confirmAction('⚠️ Clear All Data', 'Are you sure you want to clear ALL data? This cannot be undone!', () => {
+      confirmAction('Permanent Deletion', 'Really? This will delete everything permanently.', () => {
         Store.clearAll();
         showToast('All data cleared!', 'warning');
         setTimeout(() => window.location.reload(), 1000);
-      }
-    }
+      });
+    });
   });
 }

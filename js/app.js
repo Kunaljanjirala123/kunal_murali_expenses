@@ -12,6 +12,7 @@ import { renderTax, initTax } from './pages/tax.js';
 import { renderRetirement, initRetirement } from './pages/retirement.js';
 import { renderHSA, initHSA } from './pages/hsa.js';
 import { renderSettings, initSettings } from './pages/settings.js';
+import { renderCalculators, initCalculators } from './pages/calculators.js';
 
 const routes = {
     dashboard: { title: 'Dashboard', render: renderDashboard, init: initDashboard },
@@ -23,6 +24,7 @@ const routes = {
     tax: { title: 'Tax Details', render: renderTax, init: initTax },
     retirement: { title: '401k Retirement', render: renderRetirement, init: initRetirement },
     hsa: { title: 'HSA Account', render: renderHSA, init: initHSA },
+    calculators: { title: 'Payoff Calculators', render: renderCalculators, init: initCalculators },
     settings: { title: 'Settings', render: renderSettings, init: initSettings },
 };
 

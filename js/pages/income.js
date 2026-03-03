@@ -1,6 +1,6 @@
 // Income Tracker Page
 import Store from '../store.js';
-import { formatUSD, formatDate, today, showToast, openModal, closeModal, INCOME_TYPES, staggerChildren, showQuoteToast } from '../utils.js';
+import { formatUSD, formatDate, today, showToast, openModal, closeModal, INCOME_TYPES, staggerChildren, showQuoteToast, confirmAction } from '../utils.js';
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -181,11 +181,11 @@ export function initIncome() {
 
   document.querySelectorAll('.delete-income').forEach(btn => {
     btn.addEventListener('click', () => {
-      if (confirm('Delete this income entry?')) {
+      confirmAction('Delete Income', 'Are you sure you want to delete this income entry?', () => {
         Store.deleteIncome(btn.dataset.id);
         showToast('Income deleted', 'warning');
         refresh();
-      }
+      });
     });
   });
 

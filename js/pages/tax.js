@@ -1,21 +1,20 @@
-// Tax Details Page (Kunal Only)
 import Store from '../store.js';
-import { formatUSD, showToast, openModal, closeModal, staggerChildren } from '../utils.js';
+import { formatUSD, showToast, openModal, closeModal, staggerChildren, confirmAction } from '../utils.js';
 
 const FILING_STATUSES = ['Single', 'Married Filing Jointly', 'Married Filing Separately', 'Head of Household'];
 
 const TAX_BRACKETS_2026 = [
-    { min: 0, max: 11600, rate: 10 },
-    { min: 11600, max: 47150, rate: 12 },
-    { min: 47150, max: 100525, rate: 22 },
-    { min: 100525, max: 191950, rate: 24 },
-    { min: 191950, max: 243725, rate: 32 },
-    { min: 243725, max: 609350, rate: 35 },
-    { min: 609350, max: Infinity, rate: 37 },
+  { min: 0, max: 11600, rate: 10 },
+  { min: 11600, max: 47150, rate: 12 },
+  { min: 47150, max: 100525, rate: 22 },
+  { min: 100525, max: 191950, rate: 24 },
+  { min: 191950, max: 243725, rate: 32 },
+  { min: 243725, max: 609350, rate: 35 },
+  { min: 609350, max: Infinity, rate: 37 },
 ];
 
 function getFormHTML(existing = null) {
-    return `
+  return `
     <form id="tax-form">
       <div class="form-group">
         <label>Tax Year</label>
@@ -56,20 +55,20 @@ function getFormHTML(existing = null) {
 }
 
 function calcEffectiveRate(income) {
-    let tax = 0;
-    for (const bracket of TAX_BRACKETS_2026) {
-        if (income <= bracket.min) break;
-        const taxable = Math.min(income, bracket.max) - bracket.min;
-        tax += taxable * (bracket.rate / 100);
-    }
-    return { tax, rate: income > 0 ? (tax / income) * 100 : 0 };
+  let tax = 0;
+  for (const bracket of TAX_BRACKETS_2026) {
+    if (income <= bracket.min) break;
+    const taxable = Math.min(income, bracket.max) - bracket.min;
+    tax += taxable * (bracket.rate / 100);
+  }
+  return { tax, rate: income > 0 ? (tax / income) * 100 : 0 };
 }
 
 export function renderTax() {
-    const taxRecords = Store.getTax().sort((a, b) => (b.year || 0) - (a.year || 0));
-    const latest = taxRecords[0];
+  const taxRecords = Store.getTax().sort((a, b) => (b.year || 0) - (a.year || 0));
+  const latest = taxRecords[0];
 
-    return `
+  return `
     <div class="section-header">
       <div style="display:flex; align-items:center; gap: var(--space-md);">
         <h3 class="section-title">Tax Details</h3>
@@ -85,9 +84,9 @@ export function renderTax() {
       </div>
       <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
         ${TAX_BRACKETS_2026.map((bracket, i) => {
-        const width = bracket.max === Infinity ? 100 : Math.min((bracket.max / 609350) * 100, 100);
-        const colors = ['var(--mint-light)', 'var(--mint)', 'var(--sky-light)', 'var(--peach-light)', 'var(--blush)', 'var(--coral-light)', 'var(--coral)'];
-        return `
+    const width = bracket.max === Infinity ? 100 : Math.min((bracket.max / 609350) * 100, 100);
+    const colors = ['var(--mint-light)', 'var(--mint)', 'var(--sky-light)', 'var(--peach-light)', 'var(--blush)', 'var(--coral-light)', 'var(--coral)'];
+    return `
             <div style="display:flex; align-items:center; gap: var(--space-sm);">
               <span style="font-size: var(--fs-xs); width: 40px; text-align: right; font-weight: var(--fw-semibold);">${bracket.rate}%</span>
               <div style="flex:1; height: 24px; background: var(--bg-secondary); border-radius: var(--radius-sm); overflow: hidden;">
@@ -98,16 +97,16 @@ export function renderTax() {
               </span>
             </div>
           `;
-    }).join('')}
+  }).join('')}
       </div>
     </div>
 
     <!-- Tax Records -->
     <div class="grid-auto">
       ${taxRecords.length > 0 ? taxRecords.map(rec => {
-        const { tax: estimatedTax, rate: effectiveRate } = calcEffectiveRate(rec.grossIncome - (rec.deductions || 0));
-        const refund = (rec.withheld || 0) - (rec.taxOwed || estimatedTax);
-        return `
+    const { tax: estimatedTax, rate: effectiveRate } = calcEffectiveRate(rec.grossIncome - (rec.deductions || 0));
+    const refund = (rec.withheld || 0) - (rec.taxOwed || estimatedTax);
+    return `
           <div class="glass-card">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--space-md);">
               <h4 style="font-size: var(--fs-xl); font-weight: var(--fw-bold);">📋 ${rec.year}</h4>
@@ -144,7 +143,7 @@ export function renderTax() {
             </div>
           </div>
         `;
-    }).join('') : `
+  }).join('') : `
         <div class="empty-state" style="grid-column: 1 / -1;">
           <div class="empty-icon">📋</div>
           <div class="empty-text">No tax records yet. Add your tax year details!</div>
@@ -156,54 +155,54 @@ export function renderTax() {
 }
 
 export function initTax() {
-    function openAddModal() {
-        openModal('Add Tax Record', getFormHTML());
-        document.getElementById('tax-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const fd = new FormData(e.target);
-            Store.addTax({
-                year: parseInt(fd.get('year')), filingStatus: fd.get('filingStatus'),
-                grossIncome: parseFloat(fd.get('grossIncome')), deductions: parseFloat(fd.get('deductions')),
-                withheld: parseFloat(fd.get('withheld')), taxOwed: parseFloat(fd.get('taxOwed')),
-                notes: fd.get('notes'),
-            });
-            closeModal(); showToast('Tax record added!', 'success'); refresh();
-        });
-    }
-
-    document.getElementById('add-tax-btn')?.addEventListener('click', openAddModal);
-    document.getElementById('add-tax-empty')?.addEventListener('click', openAddModal);
-
-    document.querySelectorAll('.edit-tax').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const item = Store.getTax().find(i => i.id === btn.dataset.id);
-            if (!item) return;
-            openModal('Edit Tax Record', getFormHTML(item));
-            document.getElementById('tax-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const fd = new FormData(e.target);
-                Store.updateTax(btn.dataset.id, {
-                    year: parseInt(fd.get('year')), filingStatus: fd.get('filingStatus'),
-                    grossIncome: parseFloat(fd.get('grossIncome')), deductions: parseFloat(fd.get('deductions')),
-                    withheld: parseFloat(fd.get('withheld')), taxOwed: parseFloat(fd.get('taxOwed')),
-                    notes: fd.get('notes'),
-                });
-                closeModal(); showToast('Tax record updated!', 'success'); refresh();
-            });
-        });
+  function openAddModal() {
+    openModal('Add Tax Record', getFormHTML());
+    document.getElementById('tax-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      Store.addTax({
+        year: parseInt(fd.get('year')), filingStatus: fd.get('filingStatus'),
+        grossIncome: parseFloat(fd.get('grossIncome')), deductions: parseFloat(fd.get('deductions')),
+        withheld: parseFloat(fd.get('withheld')), taxOwed: parseFloat(fd.get('taxOwed')),
+        notes: fd.get('notes'),
+      });
+      closeModal(); showToast('Tax record added!', 'success'); refresh();
     });
+  }
 
-    document.querySelectorAll('.delete-tax').forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (confirm('Delete this tax record?')) { Store.deleteTax(btn.dataset.id); showToast('Tax record deleted', 'warning'); refresh(); }
+  document.getElementById('add-tax-btn')?.addEventListener('click', openAddModal);
+  document.getElementById('add-tax-empty')?.addEventListener('click', openAddModal);
+
+  document.querySelectorAll('.edit-tax').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = Store.getTax().find(i => i.id === btn.dataset.id);
+      if (!item) return;
+      openModal('Edit Tax Record', getFormHTML(item));
+      document.getElementById('tax-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        Store.updateTax(btn.dataset.id, {
+          year: parseInt(fd.get('year')), filingStatus: fd.get('filingStatus'),
+          grossIncome: parseFloat(fd.get('grossIncome')), deductions: parseFloat(fd.get('deductions')),
+          withheld: parseFloat(fd.get('withheld')), taxOwed: parseFloat(fd.get('taxOwed')),
+          notes: fd.get('notes'),
         });
+        closeModal(); showToast('Tax record updated!', 'success'); refresh();
+      });
     });
+  });
 
-    staggerChildren(document.getElementById('page-container'), '.glass-card', 120);
+  document.querySelectorAll('.delete-tax').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (confirm('Delete this tax record?')) { Store.deleteTax(btn.dataset.id); showToast('Tax record deleted', 'warning'); refresh(); }
+    });
+  });
+
+  staggerChildren(document.getElementById('page-container'), '.glass-card', 120);
 }
 
 function refresh() {
-    const container = document.getElementById('page-container');
-    container.innerHTML = renderTax();
-    initTax();
+  const container = document.getElementById('page-container');
+  container.innerHTML = renderTax();
+  initTax();
 }

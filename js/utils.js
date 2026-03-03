@@ -112,6 +112,38 @@ export function showToast(message, type = 'info') {
   }, 3000);
 }
 
+// Confirm Action Modal
+export function confirmAction(title, message, onConfirm) {
+  const overlay = document.getElementById('modal-overlay');
+
+  document.getElementById('modal-title').innerHTML = `<span style="color:var(--coral-dark);">⚠️</span> ${title}`;
+  document.getElementById('modal-body').innerHTML = `
+    <div style="padding: 10px 0;">
+      <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: var(--fs-sm);">${message}</p>
+      <div class="modal-actions" style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 12px;">
+        <button type="button" class="btn btn-ghost" id="confirm-cancel-btn">Cancel</button>
+        <button type="button" class="btn btn-primary" id="confirm-action-btn" style="background: var(--coral-dark); border-color: var(--coral-dark);">Confirm Delete</button>
+      </div>
+    </div>
+  `;
+  overlay.classList.add('active');
+
+  const cancelBtn = document.getElementById('confirm-cancel-btn');
+  const confirmBtn = document.getElementById('confirm-action-btn');
+
+  const cleanup = () => {
+    cancelBtn.removeEventListener('click', handleCancel);
+    confirmBtn.removeEventListener('click', handleConfirm);
+    closeModal();
+  };
+
+  const handleCancel = () => { cleanup(); };
+  const handleConfirm = () => { cleanup(); onConfirm(); };
+
+  cancelBtn.addEventListener('click', handleCancel);
+  confirmBtn.addEventListener('click', handleConfirm);
+}
+
 // Modal helpers
 export function openModal(title, bodyHTML) {
   const overlay = document.getElementById('modal-overlay');
@@ -366,8 +398,12 @@ export function generateSummaryHTML(Store) {
 
   const totalIncome = income.reduce((s, i) => s + Number(i.amount || 0), 0);
   const totalExpenses = expenses.reduce((s, e) => s + Number(e.amount || 0), 0);
-  const totalLoanEMI = loans.reduce((s, l) => s + Number(l.emi || 0), 0);
-  const totalLoanBalance = loans.reduce((s, l) => s + Number(l.balance || 0), 0);
+  const totalLoanEMI = loans.reduce((sum, l) => {
+    return sum + (l.currency === 'INR' ? convertINRtoUSD(Number(l.emi || 0), l.exchangeRate) : Number(l.emi || 0));
+  }, 0);
+  const totalLoanBalance = loans.reduce((sum, l) => {
+    return sum + (l.currency === 'INR' ? convertINRtoUSD(Number(l.balance || 0), l.exchangeRate) : Number(l.balance || 0));
+  }, 0);
   const totalCCDebt = cards.reduce((s, c) => s + Number(c.balance || 0), 0);
   const totalCCLimit = cards.reduce((s, c) => s + Number(c.creditLimit || 0), 0);
   const totalInsurance = insurance.reduce((s, i) => s + Number(i.premium || 0), 0);
@@ -379,10 +415,6 @@ export function generateSummaryHTML(Store) {
 
   const catTotals = {};
   expenses.forEach(e => { catTotals[e.category] = (catTotals[e.category] || 0) + Number(e.amount || 0); });
-
-  const netBalance = totalIncome - totalExpenses;
-  const totalLiabilities = totalLoanBalance + totalCCDebt;
-  const monthlyObligations = totalLoanEMI + totalCCMin + totalInsurance;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -427,7 +459,8 @@ export function generateSummaryHTML(Store) {
   </div>
 
   <div class="section-box">
-    <div class="detail-row"><span>Monthly Loan EMIs</span><strong>${formatUSD(totalLoanEMI)}</strong></div>
+    <div class="detail-row"><span>Total Loan Balance (Converted USD)</span><strong>${formatUSD(totalLoanBalance)}</strong></div>
+    <div class="detail-row"><span>Monthly Loan EMIs (Converted USD)</span><strong>${formatUSD(totalLoanEMI)}</strong></div>
     <div class="detail-row"><span>Monthly CC Minimum</span><strong>${formatUSD(totalCCMin)}</strong></div>
     <div class="detail-row"><span>Monthly Insurance</span><strong>${formatUSD(totalInsurance)}</strong></div>
     <div class="detail-row" style="border-bottom:none;font-weight:700;"><span>Total Monthly Obligations</span><strong style="color:#d04b3a;">${formatUSD(monthlyObligations)}</strong></div>

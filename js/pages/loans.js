@@ -1,6 +1,5 @@
-// Loans Manager Page
 import Store from '../store.js';
-import { formatUSD, formatINR, showToast, openModal, closeModal, createProgressRing, staggerChildren, showCelebrationToast, fetchExchangeRate, convertINRtoUSD, getStoredExchangeRate } from '../utils.js';
+import { formatUSD, formatINR, showToast, openModal, closeModal, createProgressRing, staggerChildren, showCelebrationToast, fetchExchangeRate, convertINRtoUSD, getStoredExchangeRate, confirmAction } from '../utils.js';
 
 function getFormHTML(existing = null) {
   const today = new Date().toISOString().split('T')[0];
@@ -265,7 +264,11 @@ export function initLoans() {
 
   document.querySelectorAll('.delete-loan').forEach(btn => {
     btn.addEventListener('click', () => {
-      if (confirm('Delete this loan?')) { Store.deleteLoan(btn.dataset.id); showToast('Loan deleted', 'warning'); refresh(); }
+      confirmAction('Delete Loan', 'Are you sure you want to delete this loan?', () => {
+        Store.deleteLoan(btn.dataset.id);
+        showToast('Loan deleted', 'warning');
+        refresh();
+      });
     });
   });
 

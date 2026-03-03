@@ -1,6 +1,6 @@
 // Credit Cards Page
 import Store from '../store.js';
-import { formatUSD, formatDate, showToast, openModal, closeModal, getCardGradient, createProgressRing, staggerChildren, showCelebrationToast, launchConfetti } from '../utils.js';
+import { formatUSD, formatDate, showToast, openModal, closeModal, getCardGradient, createProgressRing, staggerChildren, showCelebrationToast, launchConfetti, confirmAction } from '../utils.js';
 
 // Payment motivational quotes
 const PAYMENT_QUOTES = [
@@ -285,7 +285,11 @@ export function initCreditCards() {
 
   document.querySelectorAll('.delete-cc').forEach(btn => {
     btn.addEventListener('click', () => {
-      if (confirm('Delete this credit card?')) { Store.deleteCreditCard(btn.dataset.id); showToast('Card deleted', 'warning'); refresh(); }
+      confirmAction('Delete Card', 'Are you sure you want to delete this credit card?', () => {
+        Store.deleteCreditCard(btn.dataset.id);
+        showToast('Card deleted', 'warning');
+        refresh();
+      });
     });
   });
 
