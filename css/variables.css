@@ -1,0 +1,114 @@
+:root {
+  /* === Pastel Color Palette === */
+  --lavender: #C3B1E1;
+  --lavender-light: #DDD0F0;
+  --lavender-dark: #9B7ED4;
+  --mint: #B5EAD7;
+  --mint-light: #D4F5E9;
+  --mint-dark: #7DD4B0;
+  --blush: #FFDAC1;
+  --blush-light: #FFE9D9;
+  --blush-dark: #FFB088;
+  --sky: #A7C7E7;
+  --sky-light: #C5DBF0;
+  --sky-dark: #7BADD4;
+  --coral: #F4978E;
+  --coral-light: #F8BCB6;
+  --coral-dark: #EF6F63;
+  --peach: #FFD6A5;
+  --peach-light: #FFE5C4;
+  --peach-dark: #FFC07A;
+  --lemon: #FDFD96;
+  --lemon-light: #FEFEC8;
+  --lemon-dark: #E8E854;
+  --lilac: #E0BBE4;
+  --lilac-light: #EDD5F0;
+  --lilac-dark: #C98FD0;
+
+  /* === Semantic Colors === */
+  --bg-primary: #FFF8F0;
+  --bg-secondary: #F5F0EB;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-glass: rgba(255, 255, 255, 0.45);
+  --bg-sidebar: rgba(255, 255, 255, 0.85);
+
+  --text-primary: #2D2A3E;
+  --text-secondary: #6B6580;
+  --text-muted: #9E97B0;
+  --text-inverse: #FFFFFF;
+
+  --success: #7DD4B0;
+  --warning: #FFD6A5;
+  --danger: #F4978E;
+  --info: #A7C7E7;
+
+  /* === Person Colors === */
+  --kunal-color: var(--lavender);
+  --kunal-color-light: var(--lavender-light);
+  --kunal-color-dark: var(--lavender-dark);
+  --murali-color: var(--mint);
+  --murali-color-light: var(--mint-light);
+  --murali-color-dark: var(--mint-dark);
+
+  /* === Typography === */
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+  --fs-3xl: 2.5rem;
+  --fs-4xl: 3rem;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  /* === Spacing === */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* === Borders & Radius === */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 50%;
+  --border-light: 1px solid rgba(195, 177, 225, 0.2);
+  --border-glass: 1px solid rgba(255, 255, 255, 0.3);
+
+  /* === Shadows === */
+  --shadow-sm: 0 2px 8px rgba(45, 42, 62, 0.06);
+  --shadow-md: 0 4px 16px rgba(45, 42, 62, 0.08);
+  --shadow-lg: 0 8px 32px rgba(45, 42, 62, 0.12);
+  --shadow-xl: 0 16px 48px rgba(45, 42, 62, 0.16);
+  --shadow-glow-lavender: 0 0 20px rgba(195, 177, 225, 0.3);
+  --shadow-glow-mint: 0 0 20px rgba(181, 234, 215, 0.3);
+
+  /* === Glassmorphism === */
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.3);
+  --glass-blur: blur(12px);
+
+  /* === Transitions === */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* === Layout === */
+  --sidebar-width: 260px;
+  --sidebar-collapsed: 70px;
+  --topbar-height: 64px;
+  --content-max-width: 1200px;
+}

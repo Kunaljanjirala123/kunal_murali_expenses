@@ -1,0 +1,897 @@
+/* === Page-Specific Styles === */
+
+/* Dashboard */
+.dashboard-hero {
+    background: linear-gradient(135deg, var(--lavender-light), var(--mint-light), var(--blush-light));
+    background-size: 300% 300%;
+    animation: gradientShift 8s ease infinite;
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl) var(--space-xl);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(1px);
+}
+
+.dashboard-hero>* {
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard-hero .hero-label {
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: var(--fw-semibold);
+    margin-bottom: var(--space-sm);
+}
+
+.dashboard-hero .hero-balance {
+    font-family: var(--font-display);
+    font-size: var(--fs-4xl);
+    font-weight: var(--fw-extrabold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.dashboard-hero .hero-subtitle {
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+}
+
+.dashboard-hero .hero-persons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
+}
+
+.hero-person-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-lg);
+    min-width: 160px;
+}
+
+.hero-person-card .person-name {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    margin-bottom: var(--space-xs);
+}
+
+.hero-person-card .person-balance {
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+}
+
+/* Section Headers */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-lg);
+}
+
+.section-title {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+}
+
+/* Chart Container */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-height: 300px;
+}
+
+.chart-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+}
+
+.chart-card .chart-title {
+    font-size: var(--fs-base);
+    font-weight: var(--fw-semibold);
+    margin-bottom: var(--space-md);
+    color: var(--text-primary);
+}
+
+/* Money Flow Cards */
+.money-flow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-md);
+}
+
+.flow-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    transition: transform var(--transition-base);
+}
+
+.flow-card:hover {
+    transform: translateY(-2px);
+}
+
+.flow-card .flow-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.flow-card .flow-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.flow-card .flow-label {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    font-weight: var(--fw-medium);
+}
+
+.flow-card .flow-value {
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: var(--fw-bold);
+}
+
+/* Transaction List */
+.transaction-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    transition: background var(--transition-fast);
+}
+
+.transaction-item:hover {
+    background: rgba(195, 177, 225, 0.06);
+}
+
+.transaction-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.transaction-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.transaction-desc {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.transaction-meta {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+.transaction-amount {
+    font-family: var(--font-display);
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-sm);
+    white-space: nowrap;
+}
+
+.transaction-amount.income {
+    color: var(--mint-dark);
+}
+
+.transaction-amount.expense {
+    color: var(--coral-dark);
+}
+
+/* Loan Card */
+.loan-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+}
+
+.loan-card .loan-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
+}
+
+.loan-card .loan-lender {
+    font-weight: var(--fw-semibold);
+}
+
+.loan-card .loan-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.loan-detail-item .detail-label {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}
+
+.loan-detail-item .detail-value {
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-sm);
+}
+
+/* Insurance/Benefits Cards */
+.benefit-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+}
+
+.benefit-card .benefit-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.benefit-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.benefit-card .benefit-type {
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-md);
+}
+
+.benefit-card .benefit-provider {
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+}
+
+.benefit-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+}
+
+.benefit-info-item .info-label {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}
+
+.benefit-info-item .info-value {
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-sm);
+}
+
+/* 401k / HSA cards */
+.account-hero {
+    background: linear-gradient(135deg, var(--lavender-light), var(--sky-light));
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.account-hero .account-label {
+    font-size: var(--fs-sm);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+}
+
+.account-hero .account-balance {
+    font-family: var(--font-display);
+    font-size: var(--fs-3xl);
+    font-weight: var(--fw-extrabold);
+    color: var(--text-primary);
+}
+
+/* Credit Card Grid */
+.cc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--space-xl);
+    perspective: 1200px;
+}
+
+.cc-item {
+    text-align: center;
+    animation: ccEntrance 0.6s ease-out both;
+}
+
+.cc-item:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.cc-item:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.cc-item:nth-child(3) {
+    animation-delay: 0.25s;
+}
+
+.cc-item:nth-child(4) {
+    animation-delay: 0.35s;
+}
+
+@keyframes ccEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(30px) rotateX(10deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+/* 3D Credit Card Visual */
+.credit-card {
+    perspective: 800px;
+    cursor: pointer;
+}
+
+.credit-card-inner {
+    position: relative;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.credit-card:hover .credit-card-inner {
+    transform: rotateY(-8deg) rotateX(4deg) translateY(-8px) scale(1.02);
+}
+
+.credit-card-inner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(105deg,
+            transparent 40%,
+            rgba(255, 255, 255, 0.2) 45%,
+            rgba(255, 255, 255, 0.35) 50%,
+            rgba(255, 255, 255, 0.2) 55%,
+            transparent 60%);
+    background-size: 250% 100%;
+    background-position: 200% 0;
+    transition: background-position 0.7s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.credit-card:hover .credit-card-inner::after {
+    background-position: -50% 0;
+}
+
+/* Floating idle animation for cards */
+.cc-item:nth-child(odd) .credit-card-inner {
+    animation: ccFloat 6s ease-in-out infinite;
+}
+
+.cc-item:nth-child(even) .credit-card-inner {
+    animation: ccFloat 6s ease-in-out infinite 1.5s;
+}
+
+@keyframes ccFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.credit-card:hover .credit-card-inner {
+    animation: none;
+    transform: rotateY(-8deg) rotateX(4deg) translateY(-8px) scale(1.02);
+}
+
+/* Card shadow on hover */
+.credit-card-inner {
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+    transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.credit-card:hover .credit-card-inner {
+    filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.18));
+}
+
+.cc-details {
+    margin-top: var(--space-md);
+    text-align: left;
+    animation: fadeInUp 0.4s ease both;
+}
+
+.cc-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-sm) 0;
+    border-bottom: var(--border-light);
+    font-size: var(--fs-sm);
+    transition: background 0.2s ease;
+}
+
+.cc-detail-row:hover {
+    background: rgba(195, 177, 225, 0.05);
+    padding-left: var(--space-xs);
+    padding-right: var(--space-xs);
+    border-radius: var(--radius-sm);
+}
+
+.cc-detail-row:last-child {
+    border-bottom: none;
+}
+
+.cc-detail-label {
+    color: var(--text-muted);
+}
+
+.cc-detail-value {
+    font-weight: var(--fw-semibold);
+}
+
+/* Quote toast styling */
+.toast.quote-toast {
+    border-left: 4px solid var(--mint);
+    background: linear-gradient(135deg, rgba(181, 234, 215, 0.15), rgba(195, 177, 225, 0.1));
+    backdrop-filter: blur(16px);
+}
+
+/* Download Summary Buttons */
+.download-actions {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.download-actions .btn {
+    font-size: var(--fs-xs);
+    padding: var(--space-xs) var(--space-md);
+}
+
+/* Floating Action Button */
+.fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--lavender), var(--lavender-dark));
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg), var(--shadow-glow-lavender);
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition-base);
+    z-index: 80;
+}
+
+.fab:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: var(--shadow-xl), var(--shadow-glow-lavender);
+}
+
+/* Kunal Only Badge */
+.kunal-only-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--lavender-light);
+    color: var(--lavender-dark);
+    padding: 4px 12px;
+    border-radius: var(--radius-xl);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+}
+
+/* Filter Bar */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+
+.filter-bar .form-input {
+    max-width: 200px;
+}
+
+/* Settings  */
+.settings-section {
+    margin-bottom: var(--space-xl);
+}
+
+.settings-section .settings-title {
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semibold);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: var(--border-light);
+}
+
+/* ============================
+   3D Interactive Dashboard Effects
+   ============================ */
+
+/* Hero Background Orbs */
+.hero-bg-orb {
+    position: absolute;
+    border-radius: var(--radius-full);
+    filter: blur(60px);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+    animation: orbFloat 10s ease-in-out infinite;
+}
+
+.orb-1 {
+    width: 200px;
+    height: 200px;
+    background: var(--lavender);
+    top: -40px;
+    left: -40px;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 160px;
+    height: 160px;
+    background: var(--mint);
+    bottom: -30px;
+    right: -30px;
+    animation-delay: -3.5s;
+}
+
+.orb-3 {
+    width: 120px;
+    height: 120px;
+    background: var(--peach);
+    top: 50%;
+    left: 60%;
+    animation-delay: -7s;
+}
+
+@keyframes orbFloat {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(20px, -15px) scale(1.05);
+    }
+
+    50% {
+        transform: translate(-10px, 20px) scale(0.95);
+    }
+
+    75% {
+        transform: translate(15px, 10px) scale(1.08);
+    }
+}
+
+/* 3D Tilt Base Styles */
+.tilt-3d {
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.tilt-3d.tilt-active {
+    z-index: 2;
+}
+
+/* Stat Card 3D Enhancements */
+.stats-3d-grid {
+    perspective: 1200px;
+}
+
+.stat-card {
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.stat-card-shine {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stat-card.tilt-active .stat-card-shine {
+    opacity: 1;
+}
+
+.stat-card.tilt-active {
+    box-shadow: 0 20px 40px rgba(45, 42, 62, 0.15),
+        0 0 30px rgba(195, 177, 225, 0.2);
+}
+
+.stat-card .stat-icon {
+    transform: translateZ(30px);
+    transition: transform 0.3s ease;
+}
+
+.stat-card.tilt-active .stat-icon {
+    transform: translateZ(40px) scale(1.15);
+}
+
+.stat-card .stat-value {
+    transform: translateZ(20px);
+}
+
+.stat-card .stat-label {
+    transform: translateZ(10px);
+}
+
+/* Floating idle animation for stat cards */
+.stat-card:nth-child(1) {
+    animation: statFloat 5s ease-in-out infinite;
+}
+
+.stat-card:nth-child(2) {
+    animation: statFloat 5s ease-in-out infinite 0.8s;
+}
+
+.stat-card:nth-child(3) {
+    animation: statFloat 5s ease-in-out infinite 1.6s;
+}
+
+.stat-card:nth-child(4) {
+    animation: statFloat 5s ease-in-out infinite 2.4s;
+}
+
+@keyframes statFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+/* Flow Card 3D Enhancements */
+.flow-card {
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.flow-card-shine {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: linear-gradient(105deg,
+            transparent 40%,
+            rgba(255, 255, 255, 0.3) 45%,
+            rgba(255, 255, 255, 0.5) 50%,
+            rgba(255, 255, 255, 0.3) 55%,
+            transparent 60%);
+    background-size: 250% 100%;
+    background-position: 200% 0;
+}
+
+.flow-card.tilt-active .flow-card-shine {
+    opacity: 1;
+    animation: flowShine 1.5s ease forwards;
+}
+
+@keyframes flowShine {
+    to {
+        background-position: -50% 0;
+    }
+}
+
+.flow-card.tilt-active {
+    box-shadow: 0 15px 30px rgba(45, 42, 62, 0.12),
+        0 0 20px rgba(195, 177, 225, 0.15);
+}
+
+.flow-card .flow-icon {
+    transform: translateZ(20px);
+    transition: transform 0.3s ease;
+}
+
+.flow-card.tilt-active .flow-icon {
+    transform: translateZ(30px) scale(1.1) rotate(-5deg);
+}
+
+/* Chart Card 3D */
+.chart-card {
+    transform-style: preserve-3d;
+}
+
+.chart-card.tilt-active {
+    box-shadow: 0 20px 40px rgba(45, 42, 62, 0.12),
+        0 0 25px rgba(195, 177, 225, 0.15);
+}
+
+/* Transaction 3D Hover */
+.tx-3d-hover {
+    transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1),
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.tx-3d-hover:hover {
+    transform: translateX(6px) translateZ(10px) scale(1.01);
+    background: rgba(195, 177, 225, 0.08);
+    box-shadow: -4px 0 0 var(--lavender);
+}
+
+/* Glass Card 3D */
+.glass-card.tilt-3d.tilt-active {
+    box-shadow: 0 20px 40px rgba(45, 42, 62, 0.1),
+        0 0 30px rgba(195, 177, 225, 0.1);
+}
+
+/* Dashboard Hero 3D Enhancements */
+.dashboard-hero.tilt-3d {
+    transform-style: preserve-3d;
+}
+
+.dashboard-hero.tilt-active {
+    box-shadow: 0 25px 50px rgba(45, 42, 62, 0.12);
+}
+
+.dashboard-hero .hero-balance {
+    transform: translateZ(30px);
+    transition: transform 0.3s ease;
+}
+
+.dashboard-hero .hero-label,
+.dashboard-hero .hero-subtitle {
+    transform: translateZ(15px);
+}
+
+.dashboard-hero .hero-persons {
+    transform: translateZ(25px);
+}
+
+/* Hero Person Card hover glow */
+.hero-person-card.tilt-active {
+    box-shadow: 0 15px 30px rgba(45, 42, 62, 0.12),
+        0 0 20px rgba(195, 177, 225, 0.2);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+    .tilt-3d,
+    .stat-card,
+    .flow-card,
+    .hero-bg-orb,
+    .tx-3d-hover {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .tilt-3d {
+        transform: none !important;
+    }
+}
+
+/* Responsive overrides */
+@media (max-width: 768px) {
+    .dashboard-hero {
+        padding: var(--space-lg);
+    }
+
+    .dashboard-hero .hero-balance {
+        font-size: var(--fs-2xl);
+    }
+
+    .dashboard-hero .hero-persons {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-sm);
+    }
+
+    .hero-person-card {
+        min-width: 140px;
+    }
+
+    .money-flow-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cc-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fab {
+        bottom: 16px;
+        right: 16px;
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-bar .form-input {
+        max-width: 100%;
+    }
+}
