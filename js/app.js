@@ -72,7 +72,7 @@ function closeSidebar() {
 }
 
 // Initialize
-function init() {
+function initMainApp() {
     // Date display
     const dateDisplay = document.getElementById('date-display');
     dateDisplay.textContent = new Date().toLocaleDateString('en-US', {
@@ -93,6 +93,45 @@ function init() {
     document.getElementById('modal-overlay').addEventListener('click', (e) => {
         if (e.target === e.currentTarget) closeModal();
     });
+}
+
+function init() {
+    const isAuthenticated = localStorage.getItem('isDuoBudgetAuthenticated') === 'true';
+    const loginOverlay = document.getElementById('login-overlay');
+    const loginForm = document.getElementById('login-form');
+    const passwordInput = document.getElementById('login-password');
+    const errorMsg = document.getElementById('login-error');
+
+    if (isAuthenticated) {
+        // Hide overlay immediately and init app
+        loginOverlay.classList.add('hidden');
+        initMainApp();
+    } else {
+        // Handle login form submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = passwordInput.value;
+
+            if (password === 'Sanvitha@12') {
+                localStorage.setItem('isDuoBudgetAuthenticated', 'true');
+                loginOverlay.classList.add('hidden');
+                errorMsg.style.display = 'none';
+                initMainApp();
+            } else {
+                errorMsg.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
+
+                // Add a small shake animation to the modal
+                const modal = document.querySelector('.login-modal');
+                modal.style.transform = 'translateY(0) translateX(-10px)';
+                setTimeout(() => modal.style.transform = 'translateY(0) translateX(10px)', 50);
+                setTimeout(() => modal.style.transform = 'translateY(0) translateX(-10px)', 100);
+                setTimeout(() => modal.style.transform = 'translateY(0) translateX(10px)', 150);
+                setTimeout(() => modal.style.transform = 'translateY(0)', 200);
+            }
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', init);

@@ -20,6 +20,32 @@
 </head>
 
 <body>
+  <!-- Login Overlay -->
+  <div id="login-overlay" class="login-overlay">
+    <div class="login-modal glass-card">
+      <div class="logo" style="justify-content: center; margin-bottom: var(--space-lg);">
+        <span class="logo-icon" style="font-size: 2.5rem;">💰</span>
+      </div>
+      <h2 style="text-align: center; margin-bottom: var(--space-sm); font-family: var(--font-display);">Welcome to
+        DuoBudget</h2>
+      <p
+        style="text-align: center; color: var(--text-secondary); margin-bottom: var(--space-xl); font-size: var(--fs-sm);">
+        Please enter the password to access your dashboard.</p>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="Enter password" required />
+          <div id="login-error"
+            style="color: var(--coral-dark); font-size: var(--fs-xs); margin-top: 8px; display: none;">Incorrect
+            password. Please try again.</div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--space-sm);">Access
+          DuoBudget</button>
+      </form>
+    </div>
+  </div>
+
   <!-- Sidebar Navigation -->
   <nav class="sidebar" id="sidebar">
     <div class="sidebar-header">
