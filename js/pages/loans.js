@@ -186,11 +186,20 @@ export function initLoans() {
       if (currency === 'INR') {
         exchangeRate = await fetchExchangeRate();
       }
+      const principal = parseFloat(fd.get('principal')) || 0;
+      const interestRate = parseFloat(fd.get('interestRate')) || 0;
+      const emi = parseFloat(fd.get('emi')) || 0;
+      const balance = parseFloat(fd.get('balance'));
+
       Store.addLoan({
-        person: fd.get('person'), lender: fd.get('lender'), loanType: fd.get('loanType'),
-        currency, principal: parseFloat(fd.get('principal')),
-        interestRate: parseFloat(fd.get('interestRate')), emi: parseFloat(fd.get('emi')),
-        balance: parseFloat(fd.get('balance')),
+        person: fd.get('person'),
+        lender: fd.get('lender'),
+        loanType: fd.get('loanType'),
+        currency,
+        principal,
+        interestRate,
+        emi,
+        balance: isNaN(balance) ? 0 : balance,
         dateAdded: fd.get('dateAdded'),
         exchangeRate,
       });
@@ -217,16 +226,26 @@ export function initLoans() {
         if (currency === 'INR' && !exchangeRate) {
           exchangeRate = await fetchExchangeRate();
         }
+        const principal = parseFloat(fd.get('principal')) || 0;
+        const interestRate = parseFloat(fd.get('interestRate')) || 0;
+        const emi = parseFloat(fd.get('emi')) || 0;
+        const balance = parseFloat(fd.get('balance'));
+        const parsedBalance = isNaN(balance) ? 0 : balance;
+
         Store.updateLoan(btn.dataset.id, {
-          person: fd.get('person'), lender: fd.get('lender'), loanType: fd.get('loanType'),
-          currency, principal: parseFloat(fd.get('principal')),
-          interestRate: parseFloat(fd.get('interestRate')), emi: parseFloat(fd.get('emi')),
-          balance: parseFloat(fd.get('balance')),
+          person: fd.get('person'),
+          lender: fd.get('lender'),
+          loanType: fd.get('loanType'),
+          currency,
+          principal,
+          interestRate,
+          emi,
+          balance: parsedBalance,
           dateAdded: fd.get('dateAdded'),
           exchangeRate,
         });
         closeModal();
-        const newBalance = parseFloat(fd.get('balance'));
+        const newBalance = parsedBalance;
         if (newBalance <= 0 && item.balance > 0) {
           showCelebrationToast(`${fd.get('lender')} loan is PAID OFF!`);
         } else {
