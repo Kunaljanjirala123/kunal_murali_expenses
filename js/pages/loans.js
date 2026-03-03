@@ -72,6 +72,12 @@ export function renderLoans() {
   const totalEMI_USD = loans.filter(l => l.currency === 'USD').reduce((s, l) => s + Number(l.emi || 0), 0);
   const totalEMI_INR = loans.filter(l => l.currency === 'INR').reduce((s, l) => s + Number(l.emi || 0), 0);
 
+  // Convert INR balances to USD using stored exchange rates
+  const inrLoansDebtUSDEquiv = loans
+    .filter(l => l.currency === 'INR')
+    .reduce((s, l) => s + convertINRtoUSD(Number(l.balance || 0), l.exchangeRate), 0);
+  const totalDebt_CombinedUSD = totalDebtUSD + inrLoansDebtUSDEquiv;
+
   // Convert INR EMIs to USD using stored exchange rates
   const inrLoansUSDEquiv = loans
     .filter(l => l.currency === 'INR')
@@ -98,8 +104,9 @@ export function renderLoans() {
     <div class="grid-4" style="margin-bottom: var(--space-xl);">
       <div class="stat-card">
         <div class="stat-icon">🏦</div>
-        <div class="stat-label">Total Debt (USD)</div>
-        <div class="stat-value" style="color: var(--coral-dark);">${formatUSD(totalDebtUSD)}</div>
+        <div class="stat-label">Combined Debt (USD)</div>
+        <div class="stat-value" style="color: var(--coral-dark);">${formatUSD(totalDebt_CombinedUSD)}</div>
+        <div class="stat-change" style="color: var(--text-muted); font-size: 0.75rem;">Includes converted INR</div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🇮🇳</div>
