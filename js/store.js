@@ -2,14 +2,96 @@
 const STORE_KEY = 'duobudget_data';
 
 const DEFAULT_DATA = {
-  income: [],
-  expenses: [],
-  loans: [],
-  creditCards: [],
-  insurance: [],
-  tax: [],
-  retirement: { balance: 0, contributions: [], employerMatchPct: 100, vestingPct: 0 },
-  hsa: { balance: 0, contributions: [], expenses: [] },
+  "income": [],
+  "expenses": [
+    {
+      "person": "Kunal",
+      "category": "Rent",
+      "amount": 500,
+      "date": "2026-03-03",
+      "description": "Dinner",
+      "id": "a097615c-0a2e-43bf-989e-0ea676ddb937",
+      "createdAt": "2026-03-03T03:40:07.125Z"
+    }
+  ],
+  "loans": [
+    {
+      "person": "Kunal",
+      "lender": "SBI",
+      "loanType": "Student Loan",
+      "currency": "INR",
+      "principal": 1000000,
+      "interestRate": 10,
+      "emi": 21247,
+      "balance": 1000000,
+      "id": "af0ab3df-a8b3-4a28-bfc7-399380a075be"
+    }
+  ],
+  "creditCards": [
+    {
+      "person": "Kunal",
+      "cardName": "Chase Saphire",
+      "creditLimit": 8000,
+      "balance": 564,
+      "dueDate": "2026-03-28",
+      "minPayment": 30,
+      "last4": "2997",
+      "id": "df687095-bacd-4ba0-872d-bcc3e6042d4d"
+    },
+    {
+      "person": "Murali",
+      "cardName": "Chase Freedom",
+      "creditLimit": 14200,
+      "balance": 10614,
+      "dueDate": "2026-03-14",
+      "minPayment": 93,
+      "last4": "8412",
+      "id": "d632789f-915c-48ab-95cb-173f97c5d8a6"
+    },
+    {
+      "person": "Murali",
+      "cardName": "Discover",
+      "creditLimit": 7800,
+      "balance": 7601,
+      "dueDate": "2026-03-17",
+      "minPayment": 152,
+      "last4": "5836",
+      "id": "0a0cc2a2-419f-4254-aaf8-29da0a497f98"
+    },
+    {
+      "person": "Kunal",
+      "cardName": "Discover",
+      "creditLimit": 7000,
+      "balance": 6849.56,
+      "dueDate": "2026-03-16",
+      "minPayment": 136,
+      "last4": "9588",
+      "id": "f1e2e4f8-a684-4196-b919-dd4dbf84dd73"
+    },
+    {
+      "person": "Kunal",
+      "cardName": "Apple Wallet",
+      "creditLimit": 5000,
+      "balance": 785.27,
+      "dueDate": "2026-03-31",
+      "minPayment": 181,
+      "last4": "3064",
+      "id": "b90a3323-a92b-4a55-9fb9-49f7afa05312"
+    }
+  ],
+  "insurance": [],
+  "tax": [],
+  "retirement": {
+    "balance": 0,
+    "contributions": [],
+    "employerMatchPct": 100,
+    "vestingPct": 0
+  },
+  "hsa": {
+    "balance": 0,
+    "contributions": [],
+    "expenses": []
+  }
 };
 
 function loadData() {
